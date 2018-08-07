@@ -14,3 +14,5 @@
 
 ## Computer vision tutorials
 - [Convolutional neural network](https://github.com/shuuchen/pytorch_tutorials/blob/master/Convolutional%20Neural%20Network/cnn.ipynb) ([Original tutorial](https://github.com/yunjey/pytorch-tutorial/blob/master/tutorials/02-intermediate/convolutional_neural_network/main.py#L35-L56))
+
+- [Deep residual network](https://github.com/shuuchen/pytorch_tutorials/blob/master/Deep%20Residual%20Network/drn.nbconvert.ipynb)([Original tutorial](https://github.com/yunjey/pytorch-tutorial/blob/master/tutorials/02-intermediate/deep_residual_network/main.py))
