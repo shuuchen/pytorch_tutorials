@@ -1,7 +1,5 @@
 import torch
-import torchvision.transforms as transforms
-from PIL import Image
-
+from torchvision import models
 
 class Img2Vec():
 
@@ -18,17 +16,17 @@ class Img2Vec():
         self.layer_output_size = 2048
 
         self.model = self.model.to(self.device)
+        #self.model = models.resnet50(pretrained=True)
         self.model.eval()
 
-        self.scaler = transforms.Resize((224, 224))
-        self.normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-        self.to_tensor = transforms.ToTensor()
 
-    def get_vec(self, img_path, tensor=True):
+    def get_vec(self, image):
 
-        image = self.normalize(self.to_tensor(self.scaler(Image.open(img_path)))).unsqueeze(0).to(self.device)
+        image = image.to(self.device)
 
-        my_embedding = torch.zeros(1, self.layer_output_size, 1, 1)
+        num_imgs = image.size(0)
+
+        my_embedding = torch.zeros(num_imgs, self.layer_output_size, 1, 1)
 
         def copy_data(m, i, o):
             my_embedding.copy_(o.data)
@@ -37,7 +35,4 @@ class Img2Vec():
         h_x = self.model(image)
         h.remove()
 
-        if tensor:
-            return my_embedding
-        else:
-            return my_embedding.numpy()[0, :, 0, 0]
+        return my_embedding.view(num_imgs, -1)
